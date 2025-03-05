@@ -1,9 +1,10 @@
 import "./App.css";
+import ContinueWithGoogle from "./auth/continue.with.google";
 
 function App() {
     return (
         <>
-            <h1>Test</h1>
+            <ContinueWithGoogle />
         </>
     );
 }
