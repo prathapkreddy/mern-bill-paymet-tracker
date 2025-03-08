@@ -1,12 +1,12 @@
 import express from "express";
 import dotenv from "dotenv";
 import path from "path";
-
 import { connectDB } from "./config/db.js";
-
 import creditCardRoutes from "./routes/credit.card.route.js";
 import paymentRoutes from "./routes/payments.route.js";
 import billRoutes from "./routes/bill.route.js";
+import cors from "cors";
+import authMiddleware from "./controllers/auth.middleware.controller.js";
 
 dotenv.config();
 
@@ -15,7 +15,10 @@ const PORT = process.env.PORT || 5000;
 
 const __dirname = path.resolve();
 
-app.use(express.json()); // allows us to accept JSON data in the req.body
+app.use(cors());
+app.use(express.json());
+
+app.use("/api", authMiddleware);
 
 app.use("/api/credit-cards", creditCardRoutes);
 app.use("/api/payments", paymentRoutes);
