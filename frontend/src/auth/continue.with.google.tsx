@@ -1,14 +1,15 @@
 import { signInWithGoogle } from "../../firebase.config";
-import api from "../api.service/axios.init";
+import { useNavigate} from "react-router-dom";
 
 export default function ContinueWithGoogle() {
+
+    const navigate = useNavigate();
+
     const googleLogin = async () => {
         const userData = await signInWithGoogle();
-        console.log({ userData });
-
-        const response = await api.post("http://localhost:5000/api/auth/protected");
-
-        console.log("Protected API Response:", response.data);
+        if(userData){
+            navigate("/");
+        }
     };
 
     return <button onClick={googleLogin}>Continue with google</button>;

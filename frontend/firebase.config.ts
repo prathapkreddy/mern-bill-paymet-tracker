@@ -28,7 +28,7 @@ export const signInWithGoogle = async () => {
     }
 };
 
-export const logout = async () => {
+export const logoutFirebaseUser = async () => {
     try {
         await signOut(auth);
         console.log("User signed out");
