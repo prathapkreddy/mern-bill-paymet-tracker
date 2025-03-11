@@ -1,5 +1,12 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
+import {
+    browserLocalPersistence,
+    getAuth,
+    GoogleAuthProvider,
+    setPersistence,
+    signInWithPopup,
+    signOut,
+} from 'firebase/auth';
 
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_AUTH_FIREBASE_API_KEY,
@@ -21,7 +28,6 @@ const provider = new GoogleAuthProvider();
 export const signInWithGoogle = async () => {
     try {
         const result = await signInWithPopup(auth, provider);
-        console.log('User Info:', result.user);
         return result.user;
     } catch (error) {
         console.error('Error during sign-in:', error);
@@ -36,3 +42,12 @@ export const logoutFirebaseUser = async () => {
         console.error('Error during sign-out:', error);
     }
 };
+
+setPersistence(auth, browserLocalPersistence)
+    .then(() => {
+        console.log('Auth persistence set successfully!');
+    })
+    .catch((error) => {
+        console.error('Error setting persistence:', error);
+    });
+
