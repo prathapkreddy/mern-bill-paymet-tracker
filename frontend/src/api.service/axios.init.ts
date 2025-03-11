@@ -1,12 +1,12 @@
-import axios from "axios";
-import { getAuth } from "firebase/auth";
+import axios from 'axios';
+import { getAuth } from 'firebase/auth';
 
 const api = axios.create({
     baseURL: import.meta.env.BACKEND_BASE_URL,
 });
 
 api.interceptors.request.use(
-    async (config) => {
+    async config => {
         const auth = getAuth();
         const user = auth.currentUser;
 
@@ -17,9 +17,9 @@ api.interceptors.request.use(
 
         return config;
     },
-    (error) => {
+    error => {
         return Promise.reject(error);
-    }
+    },
 );
 
 export default api;

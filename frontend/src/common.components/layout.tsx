@@ -1,24 +1,22 @@
-import {Outlet} from "react-router-dom";
-import Header from "./header.tsx";
+import { Outlet } from 'react-router-dom';
+import Header from './header.tsx';
 
-export default function Layout(){
-
-    const styles ={
-        contianer:{
-            display: "grid",
-            gridTemplateColumns: "1fr 3fr",
-            border: "1px solid black",
-        }
-    }
+export default function Layout() {
+    const styles = {
+        contianer: {
+            display: 'grid',
+            gridTemplateColumns: '1fr 3fr',
+            border: '1px solid black',
+        },
+    };
 
     return (
         <div>
-            <Header/>
+            <Header />
             <div style={styles.contianer}>
                 <>Sidebar</>
-                <Outlet/>
+                <Outlet />
             </div>
         </div>
     );
-
 }

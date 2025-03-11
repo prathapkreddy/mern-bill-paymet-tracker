@@ -1,14 +1,13 @@
-import { signInWithGoogle } from "../../firebase.config";
-import { useNavigate} from "react-router-dom";
+import { signInWithGoogle } from '../../firebase.config';
+import { useNavigate } from 'react-router-dom';
 
 export default function ContinueWithGoogle() {
-
     const navigate = useNavigate();
 
     const googleLogin = async () => {
         const userData = await signInWithGoogle();
-        if(userData){
-            navigate("/");
+        if (userData) {
+            navigate('/');
         }
     };
 
