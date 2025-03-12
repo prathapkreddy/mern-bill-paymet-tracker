@@ -18,6 +18,15 @@ const __dirname = path.resolve();
 app.use(cors());
 app.use(express.json());
 
+
+app.get('/api-health', (req, res) => {
+    res.status(200).json({
+        status: 'OK',
+        message: 'All systems are operational',
+        timestamp: new Date().toISOString(),
+    });
+});
+
 app.use('/api', authMiddleware);
 
 app.use('/api/credit-cards', creditCardRoutes);
