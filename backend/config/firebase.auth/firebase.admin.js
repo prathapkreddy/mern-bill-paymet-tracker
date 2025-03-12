@@ -1,5 +1,5 @@
-import admin from "firebase-admin";
-import dotenv from "dotenv";
+import admin from 'firebase-admin';
+import dotenv from 'dotenv';
 
 dotenv.config();
 
@@ -14,7 +14,7 @@ const verifyToken = async (token) => {
         const decodedToken = await admin.auth().verifyIdToken(token);
         return decodedToken;
     } catch (error) {
-        console.error("Error verifying token:", error);
+        console.error('Error verifying token:', error);
         return null;
     }
 };
