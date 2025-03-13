@@ -1,5 +1,7 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import Header from './header.tsx';
+import { useEffect } from 'react';
+import SideBar from './side.bar.tsx';
 
 export default function Layout() {
     const styles = {
@@ -10,11 +12,18 @@ export default function Layout() {
         },
     };
 
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        console.log('layout');
+        navigate('/dashboard');
+    }, []);
+
     return (
         <div>
             <Header />
             <div style={styles.contianer}>
-                <>Sidebar</>
+                <SideBar />
                 <Outlet />
             </div>
         </div>
