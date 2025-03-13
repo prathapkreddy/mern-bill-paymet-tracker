@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 const CreditCardSchema = new mongoose.Schema(
     {
+        userId: { type: String, required: true },
         name: { type: String, required: true },
         type: { type: String, required: true },
         creditLimit: { type: Number, required: true },

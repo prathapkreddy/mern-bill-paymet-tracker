@@ -9,7 +9,7 @@ export const authMiddleware = async (req, res, next) => {
 
     const decodedToken = await admin.auth().verifyIdToken(token);
 
-    req.uid = decodedToken.uid;
+    req.userId = decodedToken.uid;
 
     next();
 };

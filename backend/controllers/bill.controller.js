@@ -20,7 +20,7 @@ export const addBill = async (req, res) => {
 
 export const getBills = async (req, res) => {
     try {
-        const bills = await Bill.find({});
+        const bills = await Bill.find({ userId: req.userId });
         res.status(200).json({ success: true, data: bills });
     } catch (error) {
         console.log('error in fetching bills:', error.message);
@@ -38,7 +38,11 @@ export const updateBill = async (req, res) => {
     }
 
     try {
-        const updatedPayment = await Bill.findByIdAndUpdate(id, payment, { new: true });
+        const updatedPayment = await Bill.findByIdAndUpdate(
+            { _id: id, userId: req.userId },
+            payment,
+            { new: true },
+        );
         res.status(200).json({ success: true, data: updatedPayment });
     } catch (error) {
         res.status(500).json({ success: false, message: 'Server Error' });
@@ -53,7 +57,7 @@ export const deleteBill = async (req, res) => {
     }
 
     try {
-        await Bill.findByIdAndDelete(id);
+        await Bill.findByIdAndDelete({ _id: id, userId: req.userId });
         res.status(200).json({ success: true, message: 'Bill deleted' });
     } catch (error) {
         console.log('error in deleting Bill:', error.message);

@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 const BillSchema = new mongoose.Schema(
     {
+        userId: { type: String, required: true },
         cardId: { type: String, required: true },
         statementDate: { type: Date, required: true },
         dueDate: { type: Date, required: true },

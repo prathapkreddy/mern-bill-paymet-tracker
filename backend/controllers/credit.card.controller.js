@@ -20,7 +20,7 @@ export const addCreditCard = async (req, res) => {
 
 export const getCreditCards = async (req, res) => {
     try {
-        const products = await CreditCard.find({});
+        const products = await CreditCard.find({ userId: req.userId });
         res.status(200).json({ success: true, data: products });
     } catch (error) {
         console.log('error in fetching CreditCards:', error.message);
@@ -38,7 +38,10 @@ export const updatedCreditCard = async (req, res) => {
     }
 
     try {
-        const updatedCreditCard = await CreditCard.findByIdAndUpdate(id, creditCard, { new: true });
+        const updatedCreditCard = await CreditCard.findByIdAndUpdate({
+            _id: id,
+            userId: req.userId,
+        }, creditCard, { new: true });
         res.status(200).json({ success: true, data: updatedCreditCard });
     } catch (error) {
         res.status(500).json({ success: false, message: 'Server Error' });
@@ -53,7 +56,7 @@ export const deleteCreditCard = async (req, res) => {
     }
 
     try {
-        await CreditCard.findByIdAndDelete(id);
+        await CreditCard.findByIdAndDelete({ _id: id, userId: req.userId });
         res.status(200).json({ success: true, message: 'CreditCard deleted' });
     } catch (error) {
         console.log('error in deleting CreditCard:', error.message);
