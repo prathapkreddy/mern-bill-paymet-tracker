@@ -7,7 +7,7 @@ export const addPayment = async (req, res) => {
         return res.status(400).json({ success: false, message: 'Please provide all fields' });
     }
 
-    const newPayment = new Payment(payment);
+    const newPayment = new Payment({ ...payment, userId: req.userId });
 
     try {
         await newPayment.save();

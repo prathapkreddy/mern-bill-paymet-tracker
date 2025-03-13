@@ -7,7 +7,7 @@ export const addBill = async (req, res) => {
         return res.status(400).json({ success: false, message: 'Please provide all fields' });
     }
 
-    const newBill = new Bill(bill);
+    const newBill = new Bill({ ...bill, userId: req.userId });
 
     try {
         await newBill.save();

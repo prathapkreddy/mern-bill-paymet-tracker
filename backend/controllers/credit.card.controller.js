@@ -7,7 +7,7 @@ export const addCreditCard = async (req, res) => {
         return res.status(400).json({ success: false, message: 'Please provide all fields' });
     }
 
-    const newCreditCard = new CreditCard(creditCard);
+    const newCreditCard = new CreditCard({ ...creditCard, userId: req.userId });
 
     try {
         await newCreditCard.save();
