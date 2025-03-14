@@ -13,17 +13,14 @@ const initialState: ApiState = {
     error: null,
 };
 
-export const fetchApiData = createAsyncThunk(
-    'api/fetchApiData',
-    async (url: string, { rejectWithValue }) => {
-        try {
-            const response = await axios.get(url);
-            return response.data;
-        } catch (error: any) {
-            return rejectWithValue(error.message || 'Something went wrong');
-        }
-    },
-);
+export const fetchApiData = createAsyncThunk('api/fetchApiData', async (url: string, { rejectWithValue }) => {
+    try {
+        const response = await axios.get(url);
+        return response.data;
+    } catch (error: any) {
+        return rejectWithValue(error.message || 'Something went wrong');
+    }
+});
 
 export const apiSlice = createSlice({
     name: 'api',
@@ -35,9 +32,9 @@ export const apiSlice = createSlice({
             state.loading = false;
         },
     },
-    extraReducers: (builder) => {
+    extraReducers: builder => {
         builder
-            .addCase(fetchApiData.pending, (state) => {
+            .addCase(fetchApiData.pending, state => {
                 state.loading = true;
                 state.error = null;
             })

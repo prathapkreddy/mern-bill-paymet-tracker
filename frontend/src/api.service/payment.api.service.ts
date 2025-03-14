@@ -2,7 +2,6 @@ import api from './axios.init.ts';
 import { paymentRequestData } from '../types.and.enums/api.types.ts';
 
 export const UsePaymentApi = () => {
-
     const getPayments = () => {
         try {
             return api.get('/api/payments');
@@ -35,12 +34,10 @@ export const UsePaymentApi = () => {
         }
     };
 
-
     return {
         getPayments,
         addNewPayment,
         deletePayment,
         updatePayment,
     };
-
 };

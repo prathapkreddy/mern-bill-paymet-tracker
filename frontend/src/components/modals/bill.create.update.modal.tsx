@@ -22,17 +22,19 @@ export default function BillCreateUpdateModal(props: any) {
         hide();
     };
 
-    return <div className="flex justify-center items-center min-h-screen bg-gray-100">
-        <form className="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm" onSubmit={handleSubmit}>
-            <TextInput label={'Card Name'} placeholder={'Enter Card Name'} value={name} onChange={(e: any) => setName(e.target.value)} disable={isFixedCard} />
-            <DateInput value={statementDate} onChange={(e: any) => setStatementDate(e.target.value)} label={'Statement Date'} />
-            <NumberInput label={'Minimum Payment'} placeholder={'1000'} value={minimumPayment} onChange={(e: any) => setMinimumPayment(e.target.value)} />
-            <DateInput label={'Due Date'} value={dueDate} onChange={(e: any) => setDueDate(e.target.value)} />
-            <NumberInput label={'Total Payment'} placeholder={'1000'} value={totalPayment} onChange={(e: any) => setTotalPayment(e.target.value)} />
-            <div className="flex justify-between">
-                <CancelButton onClick={hide} label={'Cancel'} />
-                <SubmitButton label={'Save'} />
-            </div>
-        </form>
-    </div>;
+    return (
+        <div className="flex justify-center items-center min-h-screen bg-gray-100">
+            <form className="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm" onSubmit={handleSubmit}>
+                <TextInput label={'Card Name'} placeholder={'Enter Card Name'} value={name} onChange={(e: any) => setName(e.target.value)} disable={isFixedCard} />
+                <DateInput value={statementDate} onChange={(e: any) => setStatementDate(e.target.value)} label={'Statement Date'} />
+                <NumberInput label={'Minimum Payment'} placeholder={'1000'} value={minimumPayment} onChange={(e: any) => setMinimumPayment(e.target.value)} />
+                <DateInput label={'Due Date'} value={dueDate} onChange={(e: any) => setDueDate(e.target.value)} />
+                <NumberInput label={'Total Payment'} placeholder={'1000'} value={totalPayment} onChange={(e: any) => setTotalPayment(e.target.value)} />
+                <div className="flex justify-between">
+                    <CancelButton onClick={hide} label={'Cancel'} />
+                    <SubmitButton label={'Save'} />
+                </div>
+            </form>
+        </div>
+    );
 }

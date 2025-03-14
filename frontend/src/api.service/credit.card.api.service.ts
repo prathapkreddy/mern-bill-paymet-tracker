@@ -2,7 +2,6 @@ import api from './axios.init.ts';
 import { creditCardRequestData } from '../types.and.enums/api.types.ts';
 
 export const useCreditCardApi = () => {
-
     const getCreditCards = async () => {
         try {
             return await api.get('/api/credit-cards');
@@ -35,12 +34,10 @@ export const useCreditCardApi = () => {
         }
     };
 
-
     return {
         getCreditCards,
         addNewCreditCard,
         deleteCreditCard,
         updateCreditCard,
     };
-
 };

@@ -18,7 +18,6 @@ export default function CardCreateUpdateModal(props: any) {
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         if (isCreate) {
-
             try {
                 await addNewCreditCard({
                     name,
@@ -28,24 +27,23 @@ export default function CardCreateUpdateModal(props: any) {
             } catch (e) {
                 console.error(e);
             }
-
         } else {
-
         }
 
         hide();
     };
 
-    return <div className="flex justify-center items-center min-h-screen bg-gray-100">
-        <form className="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm" onSubmit={handleSubmit}>
-            <TextInput label={'Card Name'} placeholder={'Enter Card Name'} value={name} onChange={(e: any) => setName(e.target.value)} />
-            <SelectInput label={'Card Type'} options={['Amex', 'Visa', 'MasterCard']} value={cardType} onChange={(e: any) => setCardType(e.target.value)} />
-            <NumberInput label={'Credit Limit'} step={100} placeholder={'1000'} value={creditLimit} onChange={(e: any) => setCreditLimit(e.target.value)} />
-            <div className="flex justify-between">
-                <CancelButton onClick={hide} label={'Cancel'} />
-                <SubmitButton label={'Save'} />
-            </div>
-        </form>
-    </div>;
+    return (
+        <div className="flex justify-center items-center min-h-screen bg-gray-100">
+            <form className="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm" onSubmit={handleSubmit}>
+                <TextInput label={'Card Name'} placeholder={'Enter Card Name'} value={name} onChange={(e: any) => setName(e.target.value)} />
+                <SelectInput label={'Card Type'} options={['Amex', 'Visa', 'MasterCard']} value={cardType} onChange={(e: any) => setCardType(e.target.value)} />
+                <NumberInput label={'Credit Limit'} step={100} placeholder={'1000'} value={creditLimit} onChange={(e: any) => setCreditLimit(e.target.value)} />
+                <div className="flex justify-between">
+                    <CancelButton onClick={hide} label={'Cancel'} />
+                    <SubmitButton label={'Save'} />
+                </div>
+            </form>
+        </div>
+    );
 }
-

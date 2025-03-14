@@ -15,23 +15,23 @@ export default function PaymentCreateUpdateModal(props: any) {
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         if (isCreate) {
-
         } else {
-
         }
 
         hide();
     };
 
-    return <div className="flex justify-center items-center min-h-screen bg-gray-100">
-        <form className="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm" onSubmit={handleSubmit}>
-            <TextInput label={'Card Name'} placeholder={'Enter Card Name'} value={name} onChange={(e: any) => setName(e.target.value)} />
-            <DateInput value={paymentDate} onChange={(e: any) => setPaymentDate(e.target.value)} label={'Payment Date'} />
-            <NumberInput label={'Credit Limit'} step={100} placeholder={'1000'} value={creditLimit} onChange={(e: any) => setCreditLimit(e.target.value)} />
-            <div className="flex justify-between">
-                <CancelButton onClick={hide} label={'Cancel'} />
-                <SubmitButton label={'Save'} />
-            </div>
-        </form>
-    </div>;
+    return (
+        <div className="flex justify-center items-center min-h-screen bg-gray-100">
+            <form className="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm" onSubmit={handleSubmit}>
+                <TextInput label={'Card Name'} placeholder={'Enter Card Name'} value={name} onChange={(e: any) => setName(e.target.value)} />
+                <DateInput value={paymentDate} onChange={(e: any) => setPaymentDate(e.target.value)} label={'Payment Date'} />
+                <NumberInput label={'Credit Limit'} step={100} placeholder={'1000'} value={creditLimit} onChange={(e: any) => setCreditLimit(e.target.value)} />
+                <div className="flex justify-between">
+                    <CancelButton onClick={hide} label={'Cancel'} />
+                    <SubmitButton label={'Save'} />
+                </div>
+            </form>
+        </div>
+    );
 }

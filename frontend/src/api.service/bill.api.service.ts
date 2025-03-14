@@ -2,7 +2,6 @@ import api from './axios.init.ts';
 import { billRequestData } from '../types.and.enums/api.types.ts';
 
 export const useBillApi = () => {
-
     const getBills = async () => {
         try {
             return await api.get('/api/bills');
@@ -34,7 +33,6 @@ export const useBillApi = () => {
             console.error(e);
         }
     };
-
 
     return {
         getBills,

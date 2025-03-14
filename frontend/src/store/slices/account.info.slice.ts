@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 interface AccountInfoState {
-    name: string,
-    email: string,
+    name: string;
+    email: string;
 }
 
 const initialState: AccountInfoState = {
