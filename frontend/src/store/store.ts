@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import modelsReducer from './slices/modals.slice.ts';
 import accountInfoReducer from './slices/account.info.slice.ts';
-import apiReducer from './slices/api.slice.ts';
+import apiReducer, { apiSlice } from './slices/api.slice.ts';
 
 export const store = configureStore({
     reducer: {
@@ -9,6 +9,7 @@ export const store = configureStore({
         accountInfo: accountInfoReducer,
         api: apiReducer,
     },
+    middleware: getDefaultMiddleware => getDefaultMiddleware().concat(apiSlice.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

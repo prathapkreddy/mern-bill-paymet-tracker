@@ -1,29 +1,24 @@
 import { useState } from 'react';
-import { useCreditCardApi } from '@/api.service/credit.card.api.service.ts';
 import { Button } from '@/components/ui/button';
 import NumberInput from '@/shared.components/form.elements/number.input.tsx';
 import TextInput from '@/shared.components/form.elements/text.input.tsx';
 import SelectInput from '@/shared.components/form.elements/select.input.tsx';
+import { useAddCreditCardMutation } from '@/store/slices/api.slice.ts';
 
 export default function CardCreateUpdateModal(props: any) {
     const { hide, isCreate, values } = props;
     const isFixedCard = values?.isFixedCard ?? false;
+    const [addCreditCard] = useAddCreditCardMutation();
 
     const [name, setName] = useState(values?.name ?? '');
     const [cardType, setCardType] = useState(values?.cardType ?? 'amex');
     const [creditLimit, setCreditLimit] = useState(values?.creditLimit ?? '');
 
-    const { addNewCreditCard } = useCreditCardApi();
-
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         if (isCreate) {
             try {
-                await addNewCreditCard({
-                    name,
-                    type: cardType,
-                    creditLimit,
-                });
+                await addCreditCard({ name, type: cardType, creditLimit });
             } catch (e) {
                 console.error(e);
             }

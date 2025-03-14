@@ -4,25 +4,25 @@ import { axiosBaseQuery } from '@/api.service/axios.init.ts';
 export const apiSlice = createApi({
     reducerPath: 'api',
     baseQuery: axiosBaseQuery({
-        baseUrl: 'https://jsonplaceholder.typicode.com',
+        baseUrl: import.meta.env.VITE_BACKEND_BASE_URL,
     }),
-    tagTypes: ['Posts'],
+    tagTypes: ['CreditCards', 'Payments', 'Bills'],
     endpoints: builder => ({
-        getPosts: builder.query({
-            query: () => ({ url: '/posts', method: 'GET' }),
-            providesTags: ['Posts'],
+        getCreditCards: builder.query({
+            query: () => ({ url: '/api/credit-cards/', method: 'GET' }),
+            providesTags: ['CreditCards'],
         }),
 
-        addPost: builder.mutation({
-            query: newPost => ({
-                url: '/posts',
+        addCreditCard: builder.mutation({
+            query: data => ({
+                url: '/api/credit-cards/add',
                 method: 'POST',
-                data: newPost,
+                data: data,
             }),
-            invalidatesTags: ['Posts'],
+            invalidatesTags: ['CreditCards'],
         }),
     }),
 });
 
-export const { useGetPostsQuery, useAddPostMutation } = apiSlice;
+export const { useGetCreditCardsQuery, useAddCreditCardMutation } = apiSlice;
 export default apiSlice.reducer;
