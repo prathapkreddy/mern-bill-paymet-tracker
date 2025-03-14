@@ -15,7 +15,7 @@ export default function RandomGradientCards(props: any) {
 
 
     return (
-        <div key={index} className={`p-6 rounded-xl  shadow-lg ${bgClass}`} style={{ borderBottom: "15px solid #ccc", width:"50%" }}>
+        <div key={index} className={`p-6 rounded-xl  shadow-lg ${bgClass}`} style={{ borderBottom: "15px solid #ccc" }}>
             <h2 className="text-xl font-bold">{cardName}</h2>
             <p>Credit Limit: {creditLimit}</p>
             <p>{cardType}</p>
