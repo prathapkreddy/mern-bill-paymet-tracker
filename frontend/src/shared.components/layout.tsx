@@ -2,6 +2,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import Header from './header.tsx';
 import { useEffect } from 'react';
 import SideBar from './side.bar.tsx';
+import ModalContainer from '../components/modals/modal.container.tsx';
 
 export default function Layout() {
     const styles = {
@@ -21,6 +22,7 @@ export default function Layout() {
 
     return (
         <div>
+            <ModalContainer />
             <Header />
             <div style={styles.contianer}>
                 <SideBar />

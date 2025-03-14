@@ -1,4 +1,5 @@
 import verifyToken from '../config/firebase.auth/firebase.admin.js';
+import admin from 'firebase-admin';
 
 export const authMiddleware = async (req, res, next) => {
     const token = req.headers.authorization?.split(' ')[1];

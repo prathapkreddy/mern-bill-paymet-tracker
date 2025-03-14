@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import modelsReducer from './slices/modelsSlice';
-import accountInfoReducer from './slices/accountInfoSlice';
+import modelsReducer from './slices/modals.slice.ts';
+import accountInfoReducer from './slices/account.info.slice.ts';
 
 export const store = configureStore({
     reducer: {
-        models: modelsReducer,
+        modals: modelsReducer,
         accountInfo: accountInfoReducer,
     },
 });
