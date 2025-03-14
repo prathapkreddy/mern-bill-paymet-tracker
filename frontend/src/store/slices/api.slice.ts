@@ -12,7 +12,6 @@ export const apiSlice = createApi({
             query: () => ({ url: '/api/credit-cards/', method: 'GET' }),
             providesTags: ['CreditCards'],
         }),
-
         addCreditCard: builder.mutation({
             query: data => ({
                 url: '/api/credit-cards/add',
@@ -21,17 +20,92 @@ export const apiSlice = createApi({
             }),
             invalidatesTags: ['CreditCards'],
         }),
-
         updateCreditCard: builder.mutation({
             query: ({ id, data }: { id: any; data: any }) => ({
                 url: `/api/credit-cards/${id}`,
                 method: 'PUT',
                 data: data,
             }),
-            invalidatesTags: ['CreditCards'], // Invalidates the credit cards tag to refresh cache
+            invalidatesTags: ['CreditCards'],
+        }),
+        deleteCreditCard: builder.mutation({
+            query: (id: any) => ({
+                url: `/api/credit-cards/${id}`,
+                method: 'DEL',
+            }),
+            invalidatesTags: ['CreditCards'],
+        }),
+
+        getPayments: builder.query({
+            query: () => ({ url: '/api/payments/', method: 'GET' }),
+            providesTags: ['Payments'],
+        }),
+        addPayment: builder.mutation({
+            query: data => ({
+                url: '/api/payments/add',
+                method: 'POST',
+                data: data,
+            }),
+            invalidatesTags: ['Payments'],
+        }),
+        updatePayment: builder.mutation({
+            query: ({ id, data }: { id: any; data: any }) => ({
+                url: `/api/payments/${id}`,
+                method: 'PUT',
+                data: data,
+            }),
+            invalidatesTags: ['Payments'],
+        }),
+        deletePayment: builder.mutation({
+            query: (id: any) => ({
+                url: `/api/payments/${id}`,
+                method: 'DEL',
+            }),
+            invalidatesTags: ['Payments'],
+        }),
+
+        getBills: builder.query({
+            query: () => ({ url: '/api/bills/', method: 'GET' }),
+            providesTags: ['Bills'],
+        }),
+        addBill: builder.mutation({
+            query: data => ({
+                url: '/api/bills/add',
+                method: 'POST',
+                data: data,
+            }),
+            invalidatesTags: ['Bills'],
+        }),
+        updateBill: builder.mutation({
+            query: ({ id, data }: { id: any; data: any }) => ({
+                url: `/api/bills/${id}`,
+                method: 'PUT',
+                data: data,
+            }),
+            invalidatesTags: ['Bills'],
+        }),
+        deleteBill: builder.mutation({
+            query: (id: any) => ({
+                url: `/api/bills/${id}`,
+                method: 'DEL',
+            }),
+            invalidatesTags: ['Bills'],
         }),
     }),
 });
 
-export const { useGetCreditCardsQuery, useAddCreditCardMutation, useUpdateCreditCardMutation } = apiSlice;
+export const {
+    useGetCreditCardsQuery,
+    useAddCreditCardMutation,
+    useUpdateCreditCardMutation,
+    useDeleteCreditCardMutation,
+    useGetPaymentsQuery,
+    useAddPaymentMutation,
+    useUpdatePaymentMutation,
+    useDeletePaymentMutation,
+    useGetBillsQuery,
+    useAddBillMutation,
+    useUpdateBillMutation,
+    useDeleteBillMutation,
+} = apiSlice;
 export default apiSlice.reducer;
