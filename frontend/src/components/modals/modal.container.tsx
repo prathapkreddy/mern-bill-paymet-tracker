@@ -1,7 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store.ts';
 import React from 'react';
-import { billsCreateModalToggle, billsUpdateModalToggle, cardsCreateModalToggle, cardsUpdateModalToggle, paymentsCreateModalToggle, paymentsUpdateModalToggle } from '../../store/slices/modals.slice.ts';
+import {
+    billsCreateModalToggle,
+    billsUpdateModalToggle,
+    cardsCreateModalToggle,
+    cardsUpdateModalToggle,
+    paymentsCreateModalToggle,
+    paymentsUpdateModalToggle,
+} from '../../store/slices/modals.slice.ts';
 import BillCreateUpdateModal from './bill.create.update.modal.tsx';
 import PaymentCreateUpdateModal from './payment.create.update.modal.tsx';
 import CardCreateUpdateModal from './card.create.update.modal.tsx';

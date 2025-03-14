@@ -64,5 +64,6 @@ export const ModalsSlice = createSlice({
     },
 });
 
-export const { billsUpdateModalToggle, paymentsUpdateModalToggle, billsCreateModalToggle, paymentsCreateModalToggle, cardsUpdateModalToggle, cardsCreateModalToggle } = ModalsSlice.actions;
+export const { billsUpdateModalToggle, paymentsUpdateModalToggle, billsCreateModalToggle, paymentsCreateModalToggle, cardsUpdateModalToggle, cardsCreateModalToggle } =
+    ModalsSlice.actions;
 export default ModalsSlice.reducer;
