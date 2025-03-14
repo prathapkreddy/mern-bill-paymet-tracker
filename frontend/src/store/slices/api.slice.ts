@@ -1,53 +1,28 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createApi } from '@reduxjs/toolkit/query/react';
+import { axiosBaseQuery } from '@/api.service/axios.init.ts';
 
-interface ApiState {
-    data: any;
-    loading: boolean;
-    error: string | null;
-}
+export const apiSlice = createApi({
+    reducerPath: 'api',
+    baseQuery: axiosBaseQuery({
+        baseUrl: 'https://jsonplaceholder.typicode.com',
+    }),
+    tagTypes: ['Posts'],
+    endpoints: builder => ({
+        getPosts: builder.query({
+            query: () => ({ url: '/posts', method: 'GET' }),
+            providesTags: ['Posts'],
+        }),
 
-const initialState: ApiState = {
-    data: null,
-    loading: false,
-    error: null,
-};
-
-export const fetchApiData = createAsyncThunk('api/fetchApiData', async (url: string, { rejectWithValue }) => {
-    try {
-        const response = await axios.get(url);
-        return response.data;
-    } catch (error: any) {
-        return rejectWithValue(error.message || 'Something went wrong');
-    }
+        addPost: builder.mutation({
+            query: newPost => ({
+                url: '/posts',
+                method: 'POST',
+                data: newPost,
+            }),
+            invalidatesTags: ['Posts'],
+        }),
+    }),
 });
 
-export const apiSlice = createSlice({
-    name: 'api',
-    initialState,
-    reducers: {
-        clearApiData(state) {
-            state.data = null;
-            state.error = null;
-            state.loading = false;
-        },
-    },
-    extraReducers: builder => {
-        builder
-            .addCase(fetchApiData.pending, state => {
-                state.loading = true;
-                state.error = null;
-            })
-            .addCase(fetchApiData.fulfilled, (state, action: PayloadAction<any>) => {
-                state.loading = false;
-                state.data = action.payload;
-            })
-            .addCase(fetchApiData.rejected, (state, action: PayloadAction<any>) => {
-                state.loading = false;
-                state.error = action.payload || 'Failed to fetch API data';
-            });
-    },
-});
-
-export const { clearApiData } = apiSlice.actions;
+export const { useGetPostsQuery, useAddPostMutation } = apiSlice;
 export default apiSlice.reducer;

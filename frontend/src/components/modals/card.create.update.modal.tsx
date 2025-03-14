@@ -11,7 +11,7 @@ export default function CardCreateUpdateModal(props: any) {
 
     const [name, setName] = useState(values?.name ?? '');
     const [cardType, setCardType] = useState(values?.cardType ?? 'amex');
-    const [creditLimit, setCreditLimit] = useState(values?.creditLimit ?? 5000);
+    const [creditLimit, setCreditLimit] = useState(values?.creditLimit ?? '');
 
     const { addNewCreditCard } = useCreditCardApi();
 

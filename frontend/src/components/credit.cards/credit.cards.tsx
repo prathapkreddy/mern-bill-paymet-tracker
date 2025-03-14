@@ -6,11 +6,11 @@ export default function CreditCards() {
 
     return (
         <div>
-            <button onClick={() => dispatch(billsCreateModalToggle())}> ADD a new Bill</button>
+            <button onClick={() => dispatch(cardsCreateModalToggle())}> New Card</button>
             <br />
-            <button onClick={() => dispatch(cardsCreateModalToggle())}> ADD a new Card</button>
+            <button onClick={() => dispatch(billsCreateModalToggle())}> New Bill</button>
             <br />
-            <button onClick={() => dispatch(paymentsCreateModalToggle())}> ADD a new payment</button>
+            <button onClick={() => dispatch(paymentsCreateModalToggle())}> New Payment</button>
         </div>
     );
 }

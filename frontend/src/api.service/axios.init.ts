@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import { getAuth } from 'firebase/auth';
 
 const api = axios.create({
@@ -23,3 +23,25 @@ api.interceptors.request.use(
 );
 
 export default api;
+
+export const axiosBaseQuery =
+    ({ baseUrl }: { baseUrl: string }) =>
+    async ({ url, method, data, params }: AxiosRequestConfig) => {
+        try {
+            const response = await axios({
+                url: baseUrl + url,
+                method,
+                data,
+                params,
+            });
+            return { data: response.data };
+        } catch (axiosError: any) {
+            let err = axiosError;
+            return {
+                error: {
+                    status: err.response?.status,
+                    data: err.response?.data || err.message,
+                },
+            };
+        }
+    };
