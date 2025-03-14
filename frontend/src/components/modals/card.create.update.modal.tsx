@@ -3,12 +3,13 @@ import { Button } from '@/components/ui/button';
 import NumberInput from '@/shared.components/form.elements/number.input.tsx';
 import TextInput from '@/shared.components/form.elements/text.input.tsx';
 import SelectInput from '@/shared.components/form.elements/select.input.tsx';
-import { useAddCreditCardMutation } from '@/store/slices/api.slice.ts';
+import { useAddCreditCardMutation, useUpdateCreditCardMutation } from '@/store/slices/api.slice.ts';
 
 export default function CardCreateUpdateModal(props: any) {
     const { hide, isCreate, values } = props;
     const isFixedCard = values?.isFixedCard ?? false;
     const [addCreditCard] = useAddCreditCardMutation();
+    const [updateCreditCard] = useUpdateCreditCardMutation();
 
     const [name, setName] = useState(values?.name ?? '');
     const [cardType, setCardType] = useState(values?.cardType ?? 'amex');
@@ -16,13 +17,14 @@ export default function CardCreateUpdateModal(props: any) {
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
-        if (isCreate) {
-            try {
+        try {
+            if (isCreate) {
                 await addCreditCard({ name, type: cardType, creditLimit });
-            } catch (e) {
-                console.error(e);
+            } else {
+                await updateCreditCard({ id: values._id, data: { name, type: cardType, creditLimit } });
             }
-        } else {
+        } catch (e) {
+            console.error(e);
         }
 
         hide();

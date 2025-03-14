@@ -21,8 +21,17 @@ export const apiSlice = createApi({
             }),
             invalidatesTags: ['CreditCards'],
         }),
+
+        updateCreditCard: builder.mutation({
+            query: ({ id, data }: { id: any; data: any }) => ({
+                url: `/api/credit-cards/${id}`,
+                method: 'PUT',
+                data: data,
+            }),
+            invalidatesTags: ['CreditCards'], // Invalidates the credit cards tag to refresh cache
+        }),
     }),
 });
 
-export const { useGetCreditCardsQuery, useAddCreditCardMutation } = apiSlice;
+export const { useGetCreditCardsQuery, useAddCreditCardMutation, useUpdateCreditCardMutation } = apiSlice;
 export default apiSlice.reducer;
