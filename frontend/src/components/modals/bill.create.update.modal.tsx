@@ -3,11 +3,20 @@ import DateInput from '../../shared.components/form.elements/date.input.tsx';
 import { Button } from '@/components/ui/button.tsx';
 import NumberInput from '@/shared.components/form.elements/number.input.tsx';
 import SelectInput from '@/shared.components/form.elements/select.input.tsx';
+import { useGetCreditCardsQuery } from '@/store/slices/api.slice.ts';
+import { useParams } from 'react-router';
 
 export default function BillCreateUpdateModal(props: any) {
+    const { data: creditCards, isLoading, isError } = useGetCreditCardsQuery(undefined);
+    if (isLoading) return <div>Loading...</div>;
+    if (isError) return <div>Error...</div>;
+
+    const {cardId} = useParams();
+    const cardName = cardId ? creditCards.data.filter((item: any) => item._id === cardId)[0]?.name ?? '' : undefined;
+
     const { hide, isCreate, values } = props;
     const isFixedCard = values?.isFixedCard ?? false;
-    const [name, setName] = useState(values?.name ?? '');
+    const [name, setName] = useState(cardName ?? values?.name ?? '');
     const [statementDate, setStatementDate] = useState(values?.statementDate ?? '');
     const [dueDate, setDueDate] = useState(values?.dueDate ?? '');
     const [minimumPayment, setMinimumPayment] = useState(values?.minimumPayment ?? '');
@@ -16,7 +25,9 @@ export default function BillCreateUpdateModal(props: any) {
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         if (isCreate) {
+
         } else {
+
         }
         hide();
     };
@@ -29,7 +40,7 @@ export default function BillCreateUpdateModal(props: any) {
                     placeholder={'Enter Card Name'}
                     value={name}
                     onChange={(value: any) => setName(value)}
-                    options={['card1', 'card2', 'card3']}
+                    options={creditCards.data.map((item: any) => item.name)}
                     disabled={isFixedCard}
                 />
 

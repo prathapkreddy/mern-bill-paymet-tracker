@@ -2,9 +2,12 @@ import { useDispatch } from 'react-redux';
 import { cardsCreateModalToggle, cardsUpdateModalToggle } from '@/store/slices/modals.slice.ts';
 import { useDeleteCreditCardMutation, useGetCreditCardsQuery } from '@/store/slices/api.slice.ts';
 import RandomGradientCards from '@/shared.components/random.gradient.cards.tsx';
+import { useNavigate } from 'react-router';
 
 export default function CreditCards() {
     const dispatch = useDispatch();
+
+    const navigate = useNavigate();
 
     const { data: creditCards, isLoading, isError } = useGetCreditCardsQuery(undefined);
     const [deleteCreditCard] = useDeleteCreditCardMutation();
@@ -18,7 +21,7 @@ export default function CreditCards() {
 
     const handleDeleteCallBack = async (item: any) => {
         await deleteCreditCard(item._id);
-    }
+    };
 
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
@@ -28,18 +31,17 @@ export default function CreditCards() {
                     +
                 </button>
             </div>
-
             {creditCards.data.map((item: any) => (
                 <RandomGradientCards
                     key={item._id}
                     cardName={item.name}
                     creditLimit={item.creditLimit}
                     cardType={item.type}
-                    deleteCallBack={()=>handleDeleteCallBack(item)}
-                    editCallBack={() => handleEditCallBack(item)} />
+                    deleteCallBack={() => handleDeleteCallBack(item)}
+                    editCallBack={() => handleEditCallBack(item)}
+                    moreDetailsCallBack={() => navigate(`/credit-cards/${item._id}`)}
+                />
             ))}
-            {/*<button onClick={() => dispatch(billsCreateModalToggle())}> New Bill</button>*/}
-            {/*<button onClick={() => dispatch(paymentsCreateModalToggle())}> New Payment</button>*/}
         </div>
     );
 }

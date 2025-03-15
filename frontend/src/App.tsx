@@ -6,6 +6,7 @@ import Dashboard from './components/dashboard/dashboard.tsx';
 import CreditCards from './components/credit.cards/credit.cards.tsx';
 import Payments from './components/payments/payments.tsx';
 import Account from './components/account/account.tsx';
+import CreditCardDetails from '@/components/credit.cards/credit.card.details.tsx';
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
                     <Route path={'/'} element={<PrivateRoutes />}>
                         <Route element={<Dashboard />} path="dashboard" />
                         <Route element={<CreditCards />} path="credit-cards" />
+                        <Route element={<CreditCardDetails />} path="credit-cards/:cardId" />
                         <Route element={<Payments />} path="payments" />
                         <Route element={<Account />} path="account" />
                     </Route>

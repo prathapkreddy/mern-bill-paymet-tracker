@@ -15,7 +15,6 @@ export default function Layout() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log('layout');
         navigate('/dashboard');
     }, []);
 

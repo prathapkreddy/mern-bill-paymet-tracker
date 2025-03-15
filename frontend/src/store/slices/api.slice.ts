@@ -12,6 +12,10 @@ export const apiSlice = createApi({
             query: () => ({ url: '/api/credit-cards/', method: 'GET' }),
             providesTags: ['CreditCards'],
         }),
+        getCreditCardDetailsById: builder.query({
+            query: cardId => ({ url: `/api/credit-cards/${cardId}`, method: 'GET' }),
+            providesTags: ['CreditCards'],
+        }),
         addCreditCard: builder.mutation({
             query: data => ({
                 url: '/api/credit-cards/add',
@@ -96,6 +100,7 @@ export const apiSlice = createApi({
 
 export const {
     useGetCreditCardsQuery,
+    useGetCreditCardDetailsByIdQuery,
     useAddCreditCardMutation,
     useUpdateCreditCardMutation,
     useDeleteCreditCardMutation,

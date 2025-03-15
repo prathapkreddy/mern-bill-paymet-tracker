@@ -1,5 +1,7 @@
 import CreditCard from '../models/credit.card.model.js';
 import mongoose from 'mongoose';
+import Payment from '../models/payment.model.js';
+import Bill from '../models/bill.model.js';
 
 export const addCreditCard = async (req, res) => {
     const creditCard = req.body;
@@ -20,8 +22,32 @@ export const addCreditCard = async (req, res) => {
 
 export const getCreditCards = async (req, res) => {
     try {
-        const products = await CreditCard.find({ userId: req.userId });
-        res.status(200).json({ success: true, data: products });
+        console.log(req.userId);
+        const creditCards = await CreditCard.find({ userId: String(req.userId) });
+        res.status(200).json({ success: true, data: creditCards });
+    } catch (error) {
+        console.log('error in fetching CreditCards:', error.message);
+        res.status(500).json({ success: false, message: 'Server Error' });
+    }
+};
+
+export const getCreditCardsById = async (req, res) => {
+    const { cardId } = req.params;
+
+    try {
+        const creditCard = await CreditCard.find({_id: cardId, userId: req.userId });
+        const payments = await Payment.find({ cardId,userId: req.userId });
+        const bills = await Bill.find({ cardId,userId: req.userId });
+
+        const data ={
+            cardName: creditCard[0].name,
+            cardType:creditCard[0].type,
+            creditLimit:creditCard[0].creditLimit,
+            payments,
+            bills
+        }
+
+        res.status(200).json({ success: true, data });
     } catch (error) {
         console.log('error in fetching CreditCards:', error.message);
         res.status(500).json({ success: false, message: 'Server Error' });

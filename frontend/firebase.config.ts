@@ -11,8 +11,6 @@ const firebaseConfig = {
     measurementId: import.meta.env.VITE_AUTH_FIREBASE_MEASAUREMENT_ID,
 };
 
-console.log(import.meta.env);
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -30,7 +28,7 @@ export const signInWithGoogle = async () => {
 export const logoutFirebaseUser = async () => {
     try {
         await signOut(auth);
-        console.log('User signed out');
+        // User signed out
     } catch (error) {
         console.error('Error during sign-out:', error);
     }
@@ -38,7 +36,7 @@ export const logoutFirebaseUser = async () => {
 
 setPersistence(auth, browserLocalPersistence)
     .then(() => {
-        console.log('Auth persistence set successfully!');
+        // Auth persistence set successfully!
     })
     .catch(error => {
         console.error('Error setting persistence:', error);
