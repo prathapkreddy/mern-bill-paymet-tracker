@@ -14,7 +14,7 @@ export const accountInfoSlice = createSlice({
     name: 'accountInfo',
     initialState,
     reducers: {
-        updateAccountInfo: (state, action) => {
+        setAccountInfo: (state, action) => {
             const { name, email } = action.payload;
             state.name = name;
             state.email = email;
@@ -22,5 +22,5 @@ export const accountInfoSlice = createSlice({
     },
 });
 
-export const { updateAccountInfo } = accountInfoSlice.actions;
+export const { setAccountInfo } = accountInfoSlice.actions;
 export default accountInfoSlice.reducer;

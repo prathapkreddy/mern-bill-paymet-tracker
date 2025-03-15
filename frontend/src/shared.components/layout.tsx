@@ -9,7 +9,6 @@ export default function Layout() {
         contianer: {
             display: 'grid',
             gridTemplateColumns: '1fr 3fr',
-            border: '1px solid black',
         },
     };
 

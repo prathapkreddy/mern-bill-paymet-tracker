@@ -31,7 +31,7 @@ export const apiSlice = createApi({
         deleteCreditCard: builder.mutation({
             query: (id: any) => ({
                 url: `/api/credit-cards/${id}`,
-                method: 'DEL',
+                method: 'DELETE',
             }),
             invalidatesTags: ['CreditCards'],
         }),
@@ -59,7 +59,7 @@ export const apiSlice = createApi({
         deletePayment: builder.mutation({
             query: (id: any) => ({
                 url: `/api/payments/${id}`,
-                method: 'DEL',
+                method: 'DELETE',
             }),
             invalidatesTags: ['Payments'],
         }),
@@ -87,7 +87,7 @@ export const apiSlice = createApi({
         deleteBill: builder.mutation({
             query: (id: any) => ({
                 url: `/api/bills/${id}`,
-                method: 'DEL',
+                method: 'DELETE',
             }),
             invalidatesTags: ['Bills'],
         }),
