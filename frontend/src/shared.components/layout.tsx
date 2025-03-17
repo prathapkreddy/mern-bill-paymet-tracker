@@ -15,7 +15,7 @@ export default function Layout() {
         <div className="h-screen">
             <ModalContainer />
             <div className={'hidden lg:block'}>
-                <div className={'flex justify-between w-full text-2xl p-4 shadow-lg'}>
+                <div className={'flex justify-between w-full text-2xl font-bold p-4 shadow-lg'}>
                     <div>Bill Tracker</div>
                 </div>
             </div>

@@ -3,6 +3,7 @@ import { cardDeleteModalToggle, cardsCreateModalToggle, cardsUpdateModalToggle }
 import { useGetCreditCardsQuery } from '@/store/slices/api.slice.ts';
 import RandomGradientCards from '@/shared.components/random.gradient.cards.tsx';
 import { useNavigate } from 'react-router';
+import { CirclePlusIcon } from 'lucide-react';
 
 export default function CreditCards() {
     const dispatch = useDispatch();
@@ -29,12 +30,14 @@ export default function CreditCards() {
             <div className={'text-xl font-medium'}>Credit Cards</div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
-                <div className="flex items-center justify-center p-6 rounded-xl text-gray-500 shadow-lg bg-gray-100 hover:bg-gray-200 cursor-pointer transition">
-                    <button onClick={() => dispatch(cardsCreateModalToggle())} className="text-3xl font-bold text-gray-400 hover:text-gray-600">
-                        +
-                    </button>
+                <div
+                    onClick={() => dispatch(cardsCreateModalToggle())}
+                    className="w-[75%] lg:w-[100%] text-xl font-bold flex mx-[12.5%] lg:mx-[0%] justify-center items-center p-4 mb-4 rounded-xl  shadow-lg cursor-pointer transition border-1"
+                >
+                    <CirclePlusIcon size={'30'} /> <span className={'pl-2'}>Add a card</span>
                 </div>
-                {creditCards.data.map((item: any) => (
+
+                {creditCards.data.map((item: any, index: number) => (
                     <RandomGradientCards
                         key={item._id}
                         cardName={item.name}
@@ -43,6 +46,7 @@ export default function CreditCards() {
                         deleteCallBack={(event: any) => handleDeleteCallBack(event, item)}
                         editCallBack={(event: any) => handleEditCallBack(event, item)}
                         moreDetailsCallBack={() => navigate(`/credit-cards/${item._id}`)}
+                        index={index}
                     />
                 ))}
             </div>

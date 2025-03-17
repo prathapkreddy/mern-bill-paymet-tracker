@@ -40,6 +40,7 @@ export default function PaymentCreateUpdateModal(props: any) {
             updatePayment({
                 id: values?.id,
                 data: {
+                    cardId,
                     date: paymentDate,
                     amount: paymentAmount,
                 },

@@ -30,7 +30,7 @@ export default function MobileSideBar() {
 
     return (
         <>
-            <div className={'flex justify-between w-full text-2xl p-2 py-4 shadow-lg'}>
+            <div className={'flex justify-between w-full text-2xl font-bold p-2 py-4 shadow-lg'}>
                 <div>Bill Tracker</div>
                 <MenuIcon onClick={() => setOpenSidebar(!openSideBar)} className={'m-0'} />
             </div>
