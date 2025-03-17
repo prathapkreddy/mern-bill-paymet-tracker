@@ -25,24 +25,27 @@ export default function CreditCards() {
     };
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
-            <h2>Credit Cards</h2> <></>
-            <div className="flex items-center justify-center p-6 rounded-xl text-gray-500 shadow-lg bg-gray-100 hover:bg-gray-200 cursor-pointer transition">
-                <button onClick={() => dispatch(cardsCreateModalToggle())} className="text-3xl font-bold text-gray-400 hover:text-gray-600">
-                    +
-                </button>
+        <>
+            <div className={'text-xl font-medium'}>Credit Cards</div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+                <div className="flex items-center justify-center p-6 rounded-xl text-gray-500 shadow-lg bg-gray-100 hover:bg-gray-200 cursor-pointer transition">
+                    <button onClick={() => dispatch(cardsCreateModalToggle())} className="text-3xl font-bold text-gray-400 hover:text-gray-600">
+                        +
+                    </button>
+                </div>
+                {creditCards.data.map((item: any) => (
+                    <RandomGradientCards
+                        key={item._id}
+                        cardName={item.name}
+                        creditLimit={item.creditLimit}
+                        cardType={item.type}
+                        deleteCallBack={(event: any) => handleDeleteCallBack(event, item)}
+                        editCallBack={(event: any) => handleEditCallBack(event, item)}
+                        moreDetailsCallBack={() => navigate(`/credit-cards/${item._id}`)}
+                    />
+                ))}
             </div>
-            {creditCards.data.map((item: any) => (
-                <RandomGradientCards
-                    key={item._id}
-                    cardName={item.name}
-                    creditLimit={item.creditLimit}
-                    cardType={item.type}
-                    deleteCallBack={(event: any) => handleDeleteCallBack(event, item)}
-                    editCallBack={(event: any) => handleEditCallBack(event, item)}
-                    moreDetailsCallBack={() => navigate(`/credit-cards/${item._id}`)}
-                />
-            ))}
-        </div>
+        </>
     );
 }

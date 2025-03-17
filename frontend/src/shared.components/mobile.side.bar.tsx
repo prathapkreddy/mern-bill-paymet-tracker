@@ -25,7 +25,7 @@ export default function MobileSideBar() {
     }, [openSideBar]);
 
     useEffect(() => {
-        setOpenSidebar(false)
+        setOpenSidebar(false);
     }, [location]);
 
     return (

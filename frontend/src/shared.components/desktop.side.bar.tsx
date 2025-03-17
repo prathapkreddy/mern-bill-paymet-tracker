@@ -4,7 +4,7 @@ import { CircleUserIcon, CreditCardIcon, DollarSignIcon, LayoutDashboardIcon } f
 
 export default function DesktopSideBar() {
     return (
-        <div className={cn('bg-white h-full border-r shadow-lg transition-transform lg:translate-x-0 p-2 m-2')}>
+        <div className={cn('bg-white h-full  shadow-lg transition-transform lg:translate-x-0 p-2')}>
             <Link to="/dashboard">
                 <div className="flex items-center gap-2 p-2 rounded text-sm font-medium hover:bg-gray-200">
                     <LayoutDashboardIcon size={20} />
