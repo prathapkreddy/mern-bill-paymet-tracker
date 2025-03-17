@@ -22,8 +22,7 @@ export const addCreditCard = async (req, res) => {
 
 export const getCreditCards = async (req, res) => {
     try {
-        console.log(req.userId);
-        const creditCards = await CreditCard.find({ userId: String(req.userId) });
+        const creditCards = await CreditCard.find({ userId: req.userId });
         res.status(200).json({ success: true, data: creditCards });
     } catch (error) {
         console.log('error in fetching CreditCards:', error.message);
