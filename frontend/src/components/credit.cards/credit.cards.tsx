@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
-import { cardsCreateModalToggle, cardsUpdateModalToggle } from '@/store/slices/modals.slice.ts';
-import { useDeleteCreditCardMutation, useGetCreditCardsQuery } from '@/store/slices/api.slice.ts';
+import { cardDeleteModalToggle, cardsCreateModalToggle, cardsUpdateModalToggle } from '@/store/slices/modals.slice.ts';
+import { useGetCreditCardsQuery } from '@/store/slices/api.slice.ts';
 import RandomGradientCards from '@/shared.components/random.gradient.cards.tsx';
 import { useNavigate } from 'react-router';
 
@@ -10,17 +10,18 @@ export default function CreditCards() {
     const navigate = useNavigate();
 
     const { data: creditCards, isLoading, isError } = useGetCreditCardsQuery(undefined);
-    const [deleteCreditCard] = useDeleteCreditCardMutation();
 
     if (isLoading) return <div>Loading...</div>;
     if (isError) return <div>Error loading posts.</div>;
 
-    const handleEditCallBack = (item: any) => {
+    const handleEditCallBack = (event: any, item: any) => {
+        event.stopPropagation();
         dispatch(cardsUpdateModalToggle(item));
     };
 
-    const handleDeleteCallBack = async (item: any) => {
-        await deleteCreditCard(item._id);
+    const handleDeleteCallBack = async (event: any, item: any) => {
+        event.stopPropagation();
+        dispatch(cardDeleteModalToggle({ id: item._id }));
     };
 
     return (
@@ -37,8 +38,8 @@ export default function CreditCards() {
                     cardName={item.name}
                     creditLimit={item.creditLimit}
                     cardType={item.type}
-                    deleteCallBack={() => handleDeleteCallBack(item)}
-                    editCallBack={() => handleEditCallBack(item)}
+                    deleteCallBack={(event: any) => handleDeleteCallBack(event, item)}
+                    editCallBack={(event: any) => handleEditCallBack(event, item)}
                     moreDetailsCallBack={() => navigate(`/credit-cards/${item._id}`)}
                 />
             ))}

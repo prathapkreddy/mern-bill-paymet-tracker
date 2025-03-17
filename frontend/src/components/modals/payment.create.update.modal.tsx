@@ -5,14 +5,15 @@ import SelectInput from '@/shared.components/form.elements/select.input.tsx';
 import { Button } from '@/components/ui/button.tsx';
 import { useAddPaymentMutation, useGetCreditCardsQuery, useUpdatePaymentMutation } from '@/store/slices/api.slice.ts';
 import { useParams } from 'react-router';
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog.tsx';
 
 export default function PaymentCreateUpdateModal(props: any) {
     const { data: creditCards, isLoading, isError } = useGetCreditCardsQuery(undefined);
     if (isLoading) return <div>Loading...</div>;
     if (isError) return <div>Error...</div>;
 
-    const {cardId} = useParams();
-    const cardName = cardId ? creditCards.data.filter((item: any) => item._id === cardId)[0]?.name ?? '' : undefined;
+    const { cardId } = useParams();
+    const cardName = cardId ? (creditCards.data.filter((item: any) => item._id === cardId)[0]?.name ?? '') : undefined;
 
     const { hide, isCreate, values } = props;
     const isFixedCard = values?.isFixedCard ?? false;
@@ -23,8 +24,6 @@ export default function PaymentCreateUpdateModal(props: any) {
 
     const [addPayment] = useAddPaymentMutation();
     const [updatePayment] = useUpdatePaymentMutation();
-
-
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
@@ -50,27 +49,30 @@ export default function PaymentCreateUpdateModal(props: any) {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-100">
-            <form className="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm" onSubmit={handleSubmit}>
-                <SelectInput
-                    label={'Card Name'}
-                    placeholder={'Enter Card Name'}
-                    value={name}
-                    onChange={(value: any) => setName(value)}
-                    options={creditCards.data.map((item: any) => item.name)}
-                    disabled={isFixedCard}
-                />
+        <Dialog defaultOpen={true} onOpenChange={hide}>
+            <DialogContent className="sm:max-w-[500px]">
+                <DialogHeader>
+                    <DialogTitle>{!isCreate ? <> Update existing payment details</> : <>Add a new payment</>}</DialogTitle>
+                </DialogHeader>
+                <form onSubmit={handleSubmit}>
+                    <div className="grid gap-4 py-4">
+                        <SelectInput
+                            label={'Card Name'}
+                            placeholder={'Enter Card Name'}
+                            value={name}
+                            onChange={(value: any) => setName(value)}
+                            options={creditCards.data.map((item: any) => item.name)}
+                            disabled={isFixedCard}
+                        />
 
-                <DateInput value={paymentDate} onChange={(value: any) => setPaymentDate(value)} label={'Payment Date'} />
-                <NumberInput label={'Payment Amount'} placeholder={'1000'} value={paymentAmount} onChange={(e: any) => setPaymentAmount(e.target.value)} />
-
-                <div className="flex justify-between">
-                    <Button variant={'secondary'} onClick={hide}>
-                        Cancel
-                    </Button>
-                    <Button type={'submit'}>Save</Button>
-                </div>
-            </form>
-        </div>
+                        <DateInput value={paymentDate} onChange={(value: any) => setPaymentDate(value)} label={'Payment Date'} />
+                        <NumberInput label={<>Payment Amount</>} placeholder={'1000'} value={paymentAmount} onChange={(e: any) => setPaymentAmount(e.target.value)} />
+                    </div>
+                    <DialogFooter>
+                        <Button type="submit">Save changes</Button>
+                    </DialogFooter>
+                </form>
+            </DialogContent>
+        </Dialog>
     );
 }

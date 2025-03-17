@@ -4,6 +4,7 @@ import NumberInput from '@/shared.components/form.elements/number.input.tsx';
 import TextInput from '@/shared.components/form.elements/text.input.tsx';
 import SelectInput from '@/shared.components/form.elements/select.input.tsx';
 import { useAddCreditCardMutation, useUpdateCreditCardMutation } from '@/store/slices/api.slice.ts';
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog.tsx';
 
 export default function CardCreateUpdateModal(props: any) {
     const { hide, isCreate, values } = props;
@@ -31,21 +32,22 @@ export default function CardCreateUpdateModal(props: any) {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-100">
-            <form className="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm" onSubmit={handleSubmit}>
-                <TextInput label={'Card Name'} placeholder={'Enter Card Name'} value={name} onChange={(e: any) => setName(e.target.value)} disabled={isFixedCard} />
-
-                <SelectInput label={'Card Type'} options={['amex', 'masterCard', 'visa']} value={cardType} onChange={(value: any) => setCardType(value)} />
-
-                <NumberInput label={'Credit Limit'} placeholder={'5000'} value={creditLimit} onChange={(e: any) => setCreditLimit(e.target.value)} />
-
-                <div className="flex justify-between">
-                    <Button variant={'secondary'} onClick={hide}>
-                        Cancel
-                    </Button>
-                    <Button type={'submit'}>Save</Button>
-                </div>
-            </form>
-        </div>
+        <Dialog defaultOpen={true} onOpenChange={hide}>
+            <DialogContent className="sm:max-w-[500px]">
+                <DialogHeader>
+                    <DialogTitle>{!isCreate ? <> Update existing card details</> : <>Create a new card</>}</DialogTitle>
+                </DialogHeader>
+                <form onSubmit={handleSubmit}>
+                    <div className="grid gap-4 py-4">
+                        <TextInput label={'Card Name'} placeholder={'Enter Card Name'} value={name} onChange={(e: any) => setName(e.target.value)} disabled={isFixedCard} />
+                        <SelectInput label={'Card Type'} options={['amex', 'masterCard', 'visa']} value={cardType} onChange={(value: any) => setCardType(value)} />
+                        <NumberInput label={'Credit Limit'} placeholder={'5000'} value={creditLimit} onChange={(e: any) => setCreditLimit(e.target.value)} />
+                    </div>
+                    <DialogFooter>
+                        <Button type="submit">Save changes</Button>
+                    </DialogFooter>
+                </form>
+            </DialogContent>
+        </Dialog>
     );
 }

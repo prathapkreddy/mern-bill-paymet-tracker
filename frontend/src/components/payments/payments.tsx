@@ -1,5 +1,5 @@
-import { useDeletePaymentMutation, useGetCreditCardsQuery, useGetPaymentsQuery } from '@/store/slices/api.slice.ts';
-import { paymentsCreateModalToggle, paymentsUpdateModalToggle } from '@/store/slices/modals.slice.ts';
+import { useGetCreditCardsQuery, useGetPaymentsQuery } from '@/store/slices/api.slice.ts';
+import { paymentDeleteModalToggle, paymentsCreateModalToggle, paymentsUpdateModalToggle } from '@/store/slices/modals.slice.ts';
 
 import { useDispatch } from 'react-redux';
 import { format } from 'date-fns';
@@ -9,7 +9,6 @@ export default function Payments() {
     const dispatch = useDispatch();
     const { data: payments, isLoading: paymentsIsLoading, isError: paymentsIsError } = useGetPaymentsQuery(undefined);
     const { data: creditCards, isLoading: creditCardsIsLoading, isError: creditCardsIsError } = useGetCreditCardsQuery(undefined);
-    const [deleteCreditCard] = useDeletePaymentMutation();
 
     let cardNameMap = new Map<string, string>();
 
@@ -32,7 +31,7 @@ export default function Payments() {
     };
 
     const deletePaymentDispatch = async (id: any) => {
-        await deleteCreditCard(id);
+        dispatch(paymentDeleteModalToggle({ id }));
     };
 
     return (

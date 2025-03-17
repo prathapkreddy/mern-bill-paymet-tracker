@@ -5,9 +5,9 @@ export default function TextInput(props: any) {
     const { label, placeholder, value, onChange, disabled } = props;
 
     return (
-        <div className="grid w-full max-w-sm items-center gap-1.5 my-4">
+        <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor={label}>{label}</Label>
-            <Input type="text" id={label} placeholder={placeholder} value={value} onChange={onChange} disabled={disabled} />
+            <Input type="text" id={label} placeholder={placeholder} value={value} className="col-span-3" onChange={onChange} disabled={disabled} />
         </div>
     );
 }

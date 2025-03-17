@@ -13,12 +13,12 @@ export default function CreditCardDetails() {
     if (isError) return <div>Error loading posts.</div>;
 
     const addBillDispatch = () => {
-        dispatch(billsCreateModalToggle())
-    }
+        dispatch(billsCreateModalToggle());
+    };
 
     const addPaymentDispatch = () => {
-        dispatch(paymentsCreateModalToggle())
-    }
+        dispatch(paymentsCreateModalToggle());
+    };
 
     return (
         <div>

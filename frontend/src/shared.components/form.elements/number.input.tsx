@@ -5,9 +5,9 @@ export default function NumberInput(props: any) {
     const { label, placeholder, value, onChange } = props;
 
     return (
-        <div className="grid w-full max-w-sm items-center gap-1.5 my-4">
+        <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor={label}>{label}</Label>
-            <Input type="number" id={label} value={value} placeholder={placeholder} onChange={onChange} />
+            <Input type="number" className="col-span-3" id={label} value={value} placeholder={placeholder} onChange={onChange} />
         </div>
     );
 }
