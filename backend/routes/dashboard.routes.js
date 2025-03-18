@@ -1,9 +1,8 @@
-import express from 'express';
-import { getDashboardDetails } from '../controllers/dashboard.controller.js';
+import express from "express";
+import { getDashboardDetails } from "../controllers/dashboard.controller.js";
 
 const router = express.Router();
 
-router.get('/', getDashboardDetails);
-
+router.get("/", getDashboardDetails);
 
 export default router;
