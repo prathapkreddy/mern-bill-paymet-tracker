@@ -32,9 +32,7 @@ export default function CardCreateUpdateModal(props: any) {
         hide();
     };
 
-    const monthOptions =Array.from({ length: 31 }, (_, i) => String(i + 1))
-
-    console.log({monthOptions})
+    const monthOptions = Array.from({ length: 31 }, (_, i) => String(i + 1));
 
     return (
         <Dialog defaultOpen={true} onOpenChange={hide}>
@@ -47,7 +45,12 @@ export default function CardCreateUpdateModal(props: any) {
                         <TextInput label={'Card Name'} placeholder={'Enter Card Name'} value={name} onChange={(e: any) => setName(e.target.value)} disabled={isFixedCard} />
                         <SelectInput label={'Card Type'} options={['amex', 'masterCard', 'visa']} value={cardType} onChange={(value: any) => setCardType(value)} />
                         <NumberInput label={'Credit Limit'} placeholder={'5000'} value={creditLimit} onChange={(e: any) => setCreditLimit(e.target.value)} />
-                        <SelectInput value={expectedStatementDate} onChange={(value: any) => setExpectedStatementDate(value)} label={'Expected Statement Date'} options={monthOptions} />
+                        <SelectInput
+                            value={expectedStatementDate}
+                            onChange={(value: any) => setExpectedStatementDate(value)}
+                            label={'Expected Statement Date'}
+                            options={monthOptions}
+                        />
                     </div>
                     <DialogFooter>
                         <Button type="submit">Save changes</Button>
