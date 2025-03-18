@@ -26,7 +26,7 @@ export default function Payments() {
                 <CirclePlusIcon size={'30'} /> <span className={'pl-2'}>Add a payment</span>
             </div>
 
-            <PaymentsTable payments={payments.data} />
+            <PaymentsTable payments={payments.data} showCardName={true} />
         </div>
     );
 }

@@ -7,7 +7,7 @@ import { useGetCreditCardsQuery } from '@/store/slices/api.slice.ts';
 
 export default function PaymentsTable(props: any) {
     const dispatch = useDispatch();
-    const { payments } = props;
+    const { payments, showCardName } = props;
     const { data: creditCards, isLoading: creditCardsIsLoading, isError: creditCardsIsError } = useGetCreditCardsQuery(undefined);
 
     let cardNameMap = new Map<string, string>();
@@ -32,16 +32,16 @@ export default function PaymentsTable(props: any) {
                     <thead>
                         <tr className="bg-gray-100 text-left text-sm font-semibold text-gray-700">
                             <th className="px-4 py-3">Date</th>
-                            <th className="px-4 py-3">Card Name</th>
+                            {showCardName && <th className="px-4 py-3">Card Name</th>}
                             <th className="px-4 py-3">Amount</th>
                             <th className="px-4 py-3">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {payments.map((payment: any, index: number) => (
-                            <tr key={index} className={`${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'} hover:bg-gray-100`}>
+                            <tr key={index} className={`${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'} hover:bg-gray-100 whitespace-nowrap`}>
                                 <td className={'px-4 py-3'}>{format(payment?.date, 'PP')}</td>
-                                <td className={'px-4 py-3'}>{cardNameMap.get(payment?.cardId)}</td>
+                                { showCardName && <td className={'px-4 py-3'}>{cardNameMap.get(payment?.cardId)}</td>}
                                 <td className={'px-4 py-3'}>{currencyFormatter(Number(payment?.amount))}</td>
                                 <td className={'px-4 py-3 flex'}>
                                     <EditIcon

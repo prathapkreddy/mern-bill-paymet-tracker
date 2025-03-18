@@ -14,7 +14,7 @@ export const apiSlice = createApi({
         }),
         getCreditCardDetailsById: builder.query({
             query: cardId => ({ url: `/api/credit-cards/${cardId}`, method: 'GET' }),
-            providesTags: ['CreditCards'],
+            providesTags: ['CreditCards','Payments', 'Bills'],
         }),
         addCreditCard: builder.mutation({
             query: data => ({

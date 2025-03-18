@@ -20,8 +20,8 @@ export default function BillCreateUpdateModal(props: any) {
     const [name, setName] = useState(cardName ?? values?.name ?? '');
     const [statementDate, setStatementDate] = useState(values?.statementDate ?? '');
     const [dueDate, setDueDate] = useState(values?.dueDate ?? '');
-    const [minimumDue, setMinimumDue] = useState(values?.minimumPayment ?? '');
-    const [totalDue, setTotalDue] = useState(values?.totalPayment ?? '');
+    const [minimumDue, setMinimumDue] = useState(values?.minimumDue ?? '');
+    const [totalDue, setTotalDue] = useState(values?.totalDue ?? '');
 
     const [addBill] = useAddBillMutation();
     const [updateBill] = useUpdateBillMutation();
