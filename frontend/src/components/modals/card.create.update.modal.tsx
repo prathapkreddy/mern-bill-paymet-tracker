@@ -21,9 +21,9 @@ export default function CardCreateUpdateModal(props: any) {
         e.preventDefault();
         try {
             if (isCreate) {
-                await addCreditCard({ name, type: cardType, creditLimit });
+                await addCreditCard({ name, type: cardType, creditLimit, expectedStatementDate });
             } else {
-                await updateCreditCard({ id: values._id, data: { name, type: cardType, creditLimit } });
+                await updateCreditCard({ id: values._id, data: { name, type: cardType, creditLimit, expectedStatementDate } });
             }
         } catch (e) {
             console.error(e);

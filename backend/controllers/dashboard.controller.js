@@ -1,6 +1,6 @@
-import CreditCard from "../models/credit.card.model.js";
 import Bill from "../models/bill.model.js";
-import Payments from "../../frontend/src/components/payments/payments.js";
+import CreditCard from "../models/credit.card.model.js";
+import Payment from "../models/payment.model.js";
 
 /*
  *
@@ -19,50 +19,76 @@ export const getDashboardDetails = async (req, res) => {
   try {
     const creditCards = await CreditCard.find({ userId: req.userId });
 
-    const lastBills = await Bill.aggregate([
-      { $sort: { generateDate: -1 } },
+    const cardMap = creditCards.reduce((map, card) => {
+      map[card._id] = card;
+      return map;
+    }, {});
+
+    const lastBillsArray = await Bill.aggregate([
+      { $sort: { statementDate: -1 } },
       { $group: { _id: "$cardId", latestRecord: { $first: "$$ROOT" } } },
       { $replaceRoot: { newRoot: "$latestRecord" } },
     ]);
 
-    const payments = await Payments.aggregate([
-      {
-        $addFields: {
-          filteredBills: {
-            $filter: {
-              input: "$lastBills",
-              as: "bill",
-              cond: {
-                $and: [
-                  { $eq: ["$$bill.cardId", "$cardId"] },
-                  { $lt: ["$$bill.generatedDate", "$paymentDate"] },
-                ],
-              },
-            },
-          },
-        },
-      },
-      {
-        $match: {
-          filteredBills: { $ne: [] }, // Only include records with matching bills
-        },
-      },
-    ]);
+    const lastBillsArrayMap = lastBillsArray.reduce((map, bill) => {
+      map[bill.cardId] = bill;
+      return map;
+    }, {});
 
-    const allCurrentPayments = "";
-    let minimumDueUnpaidMap = "";
-    let totalDueUnpaidMap = "";
-    let fullyPaidMap = "";
-    let statementNotUpdatedMap = "";
+    const allCurrentPaymentsMap = new Map();
 
-    console.log({ latestRecords: lastBills });
+    await Promise.all(
+      lastBillsArray.map(async (item) => {
+        const currentCardId = item.cardId;
+        const statementDate = item.statementDate;
+
+        const payment = await Payment.find({
+          userId: req.userId,
+          cardId: currentCardId,
+          $expr: { $gt: ["$date", statementDate] },
+        });
+
+        console.log(payment);
+
+        allCurrentPaymentsMap.set(currentCardId, payment);
+      }),
+    );
+
+    let minimumDueUnpaidMap = new Map();
+    let totalDueUnpaidMap = new Map();
+    let fullyPaidMap = new Map();
+    let statementNotUpdatedMap = new Map();
+
+    allCurrentPaymentsMap.forEach((values, cardId) => {
+      const sumOfPayments = values.reduce((aggregate, payment) => {
+        aggregate = aggregate + payment.amount;
+        return aggregate;
+      }, 0);
+
+      const newBillObject = { ...lastBillsArrayMap.get(cardId), sumOfPayments };
+
+      if (sumOfPayments < lastBillsArrayMap.get(cardId).minimumPayment) {
+        minimumDueUnpaidMap.set(cardId, newBillObject);
+      }
+
+      if (
+        sumOfPayments > lastBillsArrayMap.get(cardId).minimumPayment &&
+        sumOfPayments < lastBillsArrayMap.get(cardId).totalPayment
+      ) {
+        totalDueUnpaidMap.set(cardId, newBillObject);
+      }
+
+      if (sumOfPayments >= lastBillsArrayMap.get(cardId).totalPayment) {
+        fullyPaidMap.set(cardId, newBillObject);
+      }
+    });
 
     res.status(200).json({
       success: true,
       data: {
-        allCreditCards: creditCards,
-        lastBills,
-        allCurrentPayments,
+        allCardMap: cardMap,
+        lastBillsMap: lastBillsArrayMap,
+        allCurrentPaymentsMap,
         minimumDueUnpaidMap,
         totalDueUnpaidMap,
         fullyPaidMap,
