@@ -29,7 +29,7 @@ export default function CreditCards() {
         <>
             <div className={'text-xl font-medium'}>Credit Cards</div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:p-6 pt-4">
                 <div
                     onClick={() => dispatch(cardsCreateModalToggle())}
                     className="w-[75%] lg:w-[100%] text-xl font-bold flex mx-[12.5%] lg:mx-[0%] justify-center items-center p-4 mb-4 rounded-xl  shadow-lg cursor-pointer transition border-1"

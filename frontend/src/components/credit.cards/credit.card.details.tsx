@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { billsCreateModalToggle, paymentsCreateModalToggle } from '@/store/slices/modals.slice.ts';
 import { MoveLeftIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import PaymentsTable from '@/components/payments/payments.table.tsx';
 
 export default function CreditCardDetails() {
     const { cardId } = useParams();
@@ -12,7 +13,6 @@ export default function CreditCardDetails() {
     const dispatch = useDispatch();
 
     const { data: creditCardDetails, isLoading, isError } = useGetCreditCardDetailsByIdQuery(cardId);
-
     if (isLoading) return <div>Loading...</div>;
     if (isError) return <div>Error loading posts.</div>;
 
@@ -50,6 +50,10 @@ export default function CreditCardDetails() {
             <div>
                 <div>Payments</div>
             </div>
+
+
+            <PaymentsTable payments={creditCardDetails.data.payments} />
+
         </div>
     );
 }

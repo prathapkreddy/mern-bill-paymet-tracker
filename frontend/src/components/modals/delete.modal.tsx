@@ -29,7 +29,7 @@ export default function DeleteModal(props: any) {
         <Dialog defaultOpen={true} onOpenChange={hide}>
             <DialogContent className="sm:max-w-[500px]">
                 <div>
-                    <div>Are you sure, you wanna delete this card?</div>
+                    <div>Are you sure, you wanna delete this {type}?</div>
                 </div>
                 <DialogFooter>
                     <Button variant={'secondary'} onClick={handleSubmit}>

@@ -1,4 +1,6 @@
-import { EditIcon, TrashIcon } from 'lucide-react';
+import { PencilIcon, TrashIcon } from 'lucide-react';
+import PaymentCardIcons from '@/shared.components/payment.card.icon.tsx';
+import { currencyFormatter } from '@/shared.components/common.utils.ts';
 
 export default function RandomGradientCards(props: any) {
     const { cardName, creditLimit, cardType, index, editCallBack, deleteCallBack, moreDetailsCallBack } = props;
@@ -8,13 +10,19 @@ export default function RandomGradientCards(props: any) {
     const bgClass = lightBackgrounds[index];
 
     return (
-        <div key={index} className={`p-6 rounded-xl  shadow-lg ${bgClass}`} style={{ borderBottom: '15px solid #ccc' }} onClick={moreDetailsCallBack}>
-            <h2 className="text-xl font-bold">{cardName}</h2>
-            <p>Credit Limit: {creditLimit}</p>
-            <p>{cardType}</p>
-            <div>
-                <EditIcon onClick={editCallBack} /> Edit
-                <TrashIcon onClick={deleteCallBack} /> Delete
+        <div key={index} className={`p-4 rounded-xl  border-1 shadow-lg ${bgClass} cursor-pointer`} style={{ borderBottom: '15px solid #ccc' }} onClick={moreDetailsCallBack}>
+            <div className="text-xl font-bold">{cardName}</div>
+            <div className={'py-2'}>Credit Limit: {currencyFormatter(creditLimit)}</div>
+            <div className={'flex justify-between pt-2'}>
+                <div className={'flex justify-center items-center space-x-2'} onClick={editCallBack}>
+                    <PencilIcon size={15} />
+                    <span>Edit</span>
+                </div>
+                <div className={'flex justify-center items-center space-x-2'} onClick={deleteCallBack}>
+                    <TrashIcon size={15} />
+                    <span>Delete</span>
+                </div>
+                <PaymentCardIcons type={cardType} />
             </div>
         </div>
     );
