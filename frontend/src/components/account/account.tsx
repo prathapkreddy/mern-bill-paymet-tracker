@@ -1,16 +1,19 @@
 import { RootState } from '@/store/store.ts';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@/components/ui/button.tsx';
 import { logoutFirebaseUser } from '../../../firebase.config.ts';
 import { useNavigate } from 'react-router-dom';
 
 export default function Account() {
     const accountInfo = useSelector((state: RootState) => state.accountInfo);
-
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const logoutUser = async () => {
         await logoutFirebaseUser();
+
+        localStorage.clear();
+        dispatch({ type: 'auth/logout' });
         navigate('/login');
     };
 
