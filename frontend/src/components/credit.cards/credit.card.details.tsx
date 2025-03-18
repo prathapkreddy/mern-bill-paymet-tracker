@@ -15,10 +15,9 @@ export default function CreditCardDetails() {
     const location = useLocation();
     const dispatch = useDispatch();
 
-    const { data: creditCardDetails, isLoading:creditCardDetailsIsLoading, isError:creditCardDetailsIsError } = useGetCreditCardDetailsByIdQuery(cardId);
+    const { data: creditCardDetails, isLoading: creditCardDetailsIsLoading, isError: creditCardDetailsIsError } = useGetCreditCardDetailsByIdQuery(cardId);
     if (creditCardDetailsIsLoading) return <div>Loading...</div>;
     if (creditCardDetailsIsError) return <div>Error loading posts.</div>;
-
 
     const addBillDispatch = () => {
         dispatch(billsCreateModalToggle());
@@ -45,11 +44,13 @@ export default function CreditCardDetails() {
             <div className={'text-2xl py-4'}>{creditCardDetails.data.cardName}</div>
 
             <div className={'px-2'}>
-                <div className={'grid lg:grid-cols-3 text-lg'}>
-                    <div className={'col-span-1 grid grid-cols-2 py-2'}>
+                <div className={'grid lg:grid-cols-2 text-lg'}>
+                    <div className={'col-span-1 grid grid-cols-[1.5fr_0.5fr] py-2'}>
                         <div>Type:</div>
                         <div>{creditCardDetails.data.cardType?.toLowerCase()} </div>
                         <div>Credit Limit:</div> <div>{currencyFormatter(creditCardDetails.data.creditLimit)}</div>
+                        <div>Current Minimum Payment Due:</div> <div>{currencyFormatter(creditCardDetails.data.creditLimit)}</div>
+                        <div>Current Total Payment Due:</div> <div>{currencyFormatter(creditCardDetails.data.creditLimit)}</div>
                     </div>
                     <div className={'grid gap-2 py-2'}>
                         <Button variant={'outline'} className={'flex justify-center items-center space-x-2'} onClick={addBillDispatch}>
@@ -63,13 +64,12 @@ export default function CreditCardDetails() {
                     </div>
                 </div>
 
-                <div  className={'text-xl py-4'}>Statements</div>
-                <BillsTable bills={creditCardDetails.data.bills}/>
+                <div className={'text-xl py-4'}>Statements</div>
+                <BillsTable bills={creditCardDetails.data.bills} />
 
                 <div className={'text-xl py-4'}>Payments</div>
                 <PaymentsTable payments={creditCardDetails.data.payments} showCardName={false} />
             </div>
-
         </div>
     );
 }

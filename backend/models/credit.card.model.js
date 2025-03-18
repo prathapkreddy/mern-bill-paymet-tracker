@@ -6,6 +6,7 @@ const CreditCardSchema = new mongoose.Schema(
         name: { type: String, required: true },
         type: { type: String, required: true },
         creditLimit: { type: Number, required: true },
+        expectedStatementDate: { type: Number, required: true },
     },
     {
         timestamps: true,

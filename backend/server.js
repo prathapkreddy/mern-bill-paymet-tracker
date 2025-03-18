@@ -7,6 +7,7 @@ import paymentRoutes from './routes/payments.route.js';
 import billRoutes from './routes/bill.route.js';
 import cors from 'cors';
 import { authMiddleware } from './controllers/auth.middleware.controller.js';
+import dashboardRoutes from './routes/dashboard.routes.js';
 
 dotenv.config();
 
@@ -29,6 +30,7 @@ app.get('/api-health', (req, res) => {
 
 app.use('/api', authMiddleware);
 
+app.use('/api/dashboard',dashboardRoutes);
 app.use('/api/credit-cards', creditCardRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/bills', billRoutes);

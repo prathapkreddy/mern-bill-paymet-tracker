@@ -56,11 +56,8 @@ export default function BillCreateUpdateModal(props: any) {
                             options={creditCards.data.map((item: any) => item.name)}
                             disabled={isFixedCard}
                         />
-
                         <NumberInput label={'Minimum Payment'} placeholder={'10'} value={minimumDue} onChange={(e: any) => setMinimumDue(e.target.value)} />
-
                         <NumberInput label={'Total Payment'} placeholder={'500'} value={totalDue} onChange={(e: any) => setTotalDue(e.target.value)} />
-
                         <DateInput value={statementDate} onChange={(value: any) => setStatementDate(value)} label={'Statement Date'} />
                         <DateInput label={'Due Date'} value={dueDate} onChange={(value: any) => setDueDate(value)} />
                     </div>

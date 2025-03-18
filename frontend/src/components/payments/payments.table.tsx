@@ -41,7 +41,7 @@ export default function PaymentsTable(props: any) {
                         {payments.map((payment: any, index: number) => (
                             <tr key={index} className={`${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'} hover:bg-gray-100 whitespace-nowrap`}>
                                 <td className={'px-4 py-3'}>{format(payment?.date, 'PP')}</td>
-                                { showCardName && <td className={'px-4 py-3'}>{cardNameMap.get(payment?.cardId)}</td>}
+                                {showCardName && <td className={'px-4 py-3'}>{cardNameMap.get(payment?.cardId)}</td>}
                                 <td className={'px-4 py-3'}>{currencyFormatter(Number(payment?.amount))}</td>
                                 <td className={'px-4 py-3 flex'}>
                                     <EditIcon

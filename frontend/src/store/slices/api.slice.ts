@@ -8,13 +8,18 @@ export const apiSlice = createApi({
     }),
     tagTypes: ['CreditCards', 'Payments', 'Bills'],
     endpoints: builder => ({
+        getDashboardDetails: builder.query({
+            query: () => ({ url: '/api/dashboard/', method: 'GET' }),
+            providesTags: ['CreditCards'],
+        }),
+
         getCreditCards: builder.query({
             query: () => ({ url: '/api/credit-cards/', method: 'GET' }),
             providesTags: ['CreditCards'],
         }),
         getCreditCardDetailsById: builder.query({
             query: cardId => ({ url: `/api/credit-cards/${cardId}`, method: 'GET' }),
-            providesTags: ['CreditCards','Payments', 'Bills'],
+            providesTags: ['CreditCards', 'Payments', 'Bills'],
         }),
         addCreditCard: builder.mutation({
             query: data => ({
@@ -112,5 +117,6 @@ export const {
     useAddBillMutation,
     useUpdateBillMutation,
     useDeleteBillMutation,
+    useGetDashboardDetailsQuery,
 } = apiSlice;
 export default apiSlice.reducer;
