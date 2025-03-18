@@ -34,7 +34,7 @@ export default function BillsTable(props: any) {
                     <thead>
                         <tr className="bg-gray-100 text-left text-sm font-semibold text-gray-700">
                             <th className="px-4 py-3">Generation Date</th>
-                            <th className="px-4 py-3">Minimum Payment</th>
+                            <th className="px-4 py-3">Minimum Due</th>
                             <th className="px-4 py-3">Due Date</th>
                             <th className="px-4 py-3">Total Due</th>
                             <th className="px-4 py-3">Actions</th>
@@ -53,6 +53,7 @@ export default function BillsTable(props: any) {
                                         className={'text-blue-500 cursor-pointer'}
                                         onClick={() =>
                                             editBillDispatch({
+                                                _id:bill?._id,
                                                 name: cardNameMap.get(bill?.cardId),
                                                 statementDate: bill?.statementDate,
                                                 dueDate: bill?.dueDate,

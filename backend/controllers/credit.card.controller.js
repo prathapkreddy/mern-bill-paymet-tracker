@@ -95,6 +95,9 @@ export const deleteCreditCard = async (req, res) => {
 
   try {
     await CreditCard.findByIdAndDelete({ _id: id, userId: req.userId });
+    await Payment.deleteMany({ cardId: id, userId: req.userId });
+    await Bill.deleteMany({ cardId: id, userId: req.userId });
+
     res.status(200).json({ success: true, message: "CreditCard deleted" });
   } catch (error) {
     console.log("error in deleting CreditCard:", error.message);

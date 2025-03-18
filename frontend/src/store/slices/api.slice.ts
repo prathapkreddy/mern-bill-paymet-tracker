@@ -10,7 +10,7 @@ export const apiSlice = createApi({
     endpoints: builder => ({
         getDashboardDetails: builder.query({
             query: () => ({ url: '/api/dashboard/', method: 'GET' }),
-            providesTags: ['CreditCards'],
+            providesTags: ['CreditCards', 'Payments', 'Bills'],
         }),
 
         getCreditCards: builder.query({
@@ -42,7 +42,7 @@ export const apiSlice = createApi({
                 url: `/api/credit-cards/${id}`,
                 method: 'DELETE',
             }),
-            invalidatesTags: ['CreditCards'],
+            invalidatesTags: ['CreditCards', 'Payments', 'Bills'],
         }),
 
         getPayments: builder.query({
