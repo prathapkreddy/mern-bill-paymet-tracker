@@ -9,6 +9,7 @@ export default function MobileSideBar() {
 
     useEffect(() => {
         function handleClickOutside(event: any) {
+            // @ts-ignore
             if (sidebarRef?.current && !sidebarRef.current.contains(event.target)) {
                 setOpenSidebar(false);
             }

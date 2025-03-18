@@ -23,6 +23,7 @@
         "date-fns": "^3.6.0",
         "firebase": "^11.4.0",
         "lucide-react": "^0.481.0",
+        "mern-bill-payments-app": "file:..",
         "react": "^19.0.0",
         "react-day-picker": "^8.10.1",
         "react-dom": "^19.0.0",
